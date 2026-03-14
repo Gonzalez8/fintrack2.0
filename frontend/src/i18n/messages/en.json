@@ -170,6 +170,7 @@
   "assets.noTicker": "No ticker",
   "assets.noAssets": "No assets",
   "assets.priceMode": "Price mode",
+  "assets.syncStatus": "Sync status",
   "assets.priceSource": "Price source",
   "assets.updatePrices": "Update prices",
   "assets.updating": "Updating...",

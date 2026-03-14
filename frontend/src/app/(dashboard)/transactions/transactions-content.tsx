@@ -490,7 +490,7 @@ function TransactionDialog({
 
           <div>
             <label className="text-sm font-medium">{t("common.name")} *</label>
-            <Select value={form.asset} onValueChange={handleAssetChange}>
+            <Select value={form.asset} onValueChange={(v) => v && handleAssetChange(v)}>
               <SelectTrigger className="w-full">
                 <span className="flex flex-1 text-left truncate" data-slot="select-value">
                   {selectedAssetLabel || <span className="text-muted-foreground">{t("common.select")}</span>}
@@ -512,7 +512,7 @@ function TransactionDialog({
 
           <div>
             <label className="text-sm font-medium">{t("common.account")} *</label>
-            <Select value={form.account} onValueChange={(v) => setForm((f) => ({ ...f, account: v }))}>
+            <Select value={form.account} onValueChange={(v) => { const val = v || ""; setForm((f) => ({ ...f, account: val })); }}>
               <SelectTrigger className="w-full">
                 <span className="flex flex-1 text-left truncate" data-slot="select-value">
                   {selectedAccountLabel || <span className="text-muted-foreground">{t("common.select")}</span>}

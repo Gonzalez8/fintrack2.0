@@ -170,6 +170,7 @@
   "assets.noTicker": "Sin ticker",
   "assets.noAssets": "No hay activos",
   "assets.priceMode": "Modo precio",
+  "assets.syncStatus": "Sincronizacion",
   "assets.priceSource": "Fuente precio",
   "assets.updatePrices": "Actualizar precios",
   "assets.updating": "Actualizando...",

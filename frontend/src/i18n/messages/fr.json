@@ -105,6 +105,7 @@
   "assets.ticker": "Ticker",
   "assets.isin": "ISIN",
   "assets.priceMode": "Mode de prix",
+  "assets.syncStatus": "Etat synchro",
   "assets.priceSource": "Source de prix",
   "assets.issuerCountry": "Pays emetteur",
   "assets.domicileCountry": "Pays de domicile",

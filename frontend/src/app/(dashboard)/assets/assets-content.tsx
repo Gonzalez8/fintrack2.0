@@ -334,13 +334,21 @@ export function AssetsContent() {
     { key: "currency", header: t("common.currency"), render: (a) => <span className="text-sm">{a.currency}</span> },
     { key: "price", header: t("transactions.price"), className: "text-right", render: (a) => <MoneyCell value={a.current_price} currency={a.currency} /> },
     {
-      key: "mode",
-      header: t("assets.priceMode"),
-      render: (a) => (
-        <Badge variant={a.price_mode === "AUTO" ? "default" : "secondary"}>
-          {a.price_mode}
-        </Badge>
-      ),
+      key: "sync",
+      header: t("assets.syncStatus"),
+      render: (a) => {
+        if (a.price_mode === "MANUAL") {
+          return <Badge variant="secondary">MANUAL</Badge>;
+        }
+        const cfg: Record<string, { variant: "default" | "secondary" | "destructive" | "outline"; label: string }> = {
+          OK: { variant: "default", label: "OK" },
+          ERROR: { variant: "destructive", label: "ERROR" },
+          NOT_FOUND: { variant: "destructive", label: "NO ENCONTRADO" },
+          PENDING: { variant: "outline", label: "PENDIENTE" },
+        };
+        const { variant, label } = cfg[a.price_status] ?? { variant: "secondary" as const, label: a.price_status };
+        return <Badge variant={variant}>{label}</Badge>;
+      },
     },
     {
       key: "actions",
@@ -581,7 +589,7 @@ function AssetDialog({
             </div>
             <div className="space-y-1.5">
               <label className="text-sm font-medium">{t("common.type")}</label>
-              <Select value={form.type} onValueChange={(v) => setForm((f) => ({ ...f, type: v as AssetFormData["type"] }))}>
+              <Select value={form.type} onValueChange={(v) => v && setForm((f) => ({ ...f, type: v as AssetFormData["type"] }))}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {Object.entries(ASSET_TYPE_LABELS).map(([k, v]) => (
@@ -596,7 +604,7 @@ function AssetDialog({
             </div>
             <div className="space-y-1.5">
               <label className="text-sm font-medium">{t("assets.priceMode")}</label>
-              <Select value={form.price_mode} onValueChange={(v) => setForm((f) => ({ ...f, price_mode: v as "MANUAL" | "AUTO" }))}>
+              <Select value={form.price_mode} onValueChange={(v) => v && setForm((f) => ({ ...f, price_mode: v as "MANUAL" | "AUTO" }))}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="AUTO">Automatico</SelectItem>
